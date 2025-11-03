@@ -1,0 +1,16 @@
+Git Commit Graph - Практическая работа 3
+
+* 23303fe (HEAD -> main) Добавлен Express сервер и конфигурация проекта
+*   dfd076f Merge branch 'dev-catalog'
+|\  
+| * f5f4fb9 (origin/dev-catalog) Добавлен каталог товаров с просмотром деталей
+* |   ed18666 Merge branch 'dev-auth'
+|\ \  
+| * | 5302c83 (origin/dev-auth) Добавлена система авторизации и регистрации
+| |/  
+* / b7ec00d (origin/dev-admin) Добавлена админ-панель с CRUD операциями
+|/  
+* 92bcbe2 Очистка репозитория
+* 4cb5045 Add files via upload
+* fc87f8e Initial commit
+
