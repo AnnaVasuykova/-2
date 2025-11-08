@@ -3,6 +3,7 @@ import { isAdmin, logoutUser, getCurrentUser } from './auth.js'
 
 let currentEditingId = null
 let currentImageFile = null
+let currentImageUrl = ''
 let currentEditingUserId = null
 
 async function loadAdminPanel() {
@@ -43,7 +44,13 @@ function setupImageUpload() {
         } else {
             currentImageFile = null
             fileInfo.textContent = 'Файл не выбран'
-            imagePreview.style.display = 'none'
+            // Если редактируем и отменили выбор файла, показываем старое изображение
+            if (currentEditingId && currentImageUrl) {
+                imagePreview.src = currentImageUrl
+                imagePreview.style.display = 'block'
+            } else {
+                imagePreview.style.display = 'none'
+            }
         }
     })
 }
@@ -146,12 +153,13 @@ async function handleProductSubmit(e) {
         description: formData.get('description'),
         price: parseInt(formData.get('price')),
         category: formData.get('category'),
-        image: ''
+        image: currentImageUrl || ''
     };
     
     console.log('📦 Данные товара:', product);
     console.log('🆔 ID редактирования:', currentEditingId);
     console.log('🖼️ Выбранный файл:', currentImageFile);
+    console.log('🔗 Текущий URL изображения:', currentImageUrl);
     
     try {
         let result;
@@ -183,6 +191,7 @@ async function editProduct(id) {
         
         if (product) {
             currentEditingId = id;
+            currentImageUrl = product.image || '';
             document.getElementById('formTitle').textContent = 'Редактировать товар';
             document.getElementById('submitBtn').textContent = 'Обновить';
             document.getElementById('cancelEdit').style.display = 'inline-block';
@@ -283,6 +292,7 @@ function cancelUserEdit() {
 function resetForm() {
     currentEditingId = null;
     currentImageFile = null;
+    currentImageUrl = '';
     document.getElementById('productForm').reset();
     document.getElementById('formTitle').textContent = 'Добавить товар';
     document.getElementById('submitBtn').textContent = 'Добавить';

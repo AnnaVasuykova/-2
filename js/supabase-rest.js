@@ -11,7 +11,7 @@ export async function uploadImageToSupabase(file) {
         const uploadResponse = await fetch(
             `${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/${fileName}`,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${SUPABASE_KEY}`,
                     'Content-Type': file.type
